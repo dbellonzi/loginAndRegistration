@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+</head>
+
+<body style="background-color:darkturquoise">
+    <div class="container">
+        <h1>Register to our Website Or Log in Below</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+
+        {%endif%}
+        <form action="/register" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="fName" class="form-control" placeholder="Ex: Jane" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">First Name</small>
+            </div>
+            <div class="form-group">
+                <input type="text" name="lName" class="form-control" placeholder="Ex: Doe" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Last Name</small>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="ex: example@email.com" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Email</small>
+            </div>
+            <div class="form-group">
+                <label for=""></label>
+                <input type="date" name="birthday" class="form-control" max="2017-11-15" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Birthday</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Please create a password:</label>
+                <input type="password" name="pasw" class="form-control" aria-describedby="helpId">
+            </div>
+            <div class="form-group">
+                <label for="cPasw">Confirm Your Password:</label>
+                <input type="password" name="cPasw" class="form-control" aria-describedby="helpId">
+            </div>
+            <button type="submit" class="btn btn-secondary">Register</button>
+        </form>
+        <form action="/login" method="post">
+            {% csrf_token %}
+            <h1>Log In Here</h1>
+            <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Email:</small>
+            </div>
+            <div class="form-group">  
+                <input type="password" name="pasw" class="form-control" placeholder="" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Password</small>
+            </div>
+            <button type="submit" class="btn btn-dark">Login</button>
+        </form>
+
+    </div>
+</body>
+
+</html>
