@@ -5,9 +5,17 @@ from django.shortcuts import render,HttpResponse,redirect
 from django.contrib import messages
 from models import User
 
-# Create your views here.
+def checkLogin(session):
+  if not 'id' in session:
+    return False
+  return True
+
+
 def index(req):
-  return render(req, 'logins/index.html')
+  if checkLogin(req.session):
+    return redirect('/success')
+  else:
+    return render(req, 'logins/index.html')
 
 def add(req):
   errors = User.objects.validateRegister(req.POST)
@@ -30,6 +38,13 @@ def login(req):
     return redirect('/success')
 
 def success(req):
-  context ={'user': User.objects.get(id = req.session['id'])}
-  return render(req, 'logins/success.html',context)
+  if checkLogin(req.session):
+    context ={'user': User.objects.get(id = req.session['id'])}
+    return render(req, 'logins/success.html',context)
+  else:
+    return redirect('/')
+
+def logout(req):
+  del req.session['id']
+  return redirect('/')
 
